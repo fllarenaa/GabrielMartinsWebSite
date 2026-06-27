@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+<title>Hero Animation</title>
+</head>
+<body>
+
+<section class="hero-scroll">
+
+    <div class="sticky">
+
+           
+
+            <div class="titleLogo">
+                <img src="logo.png" alt="">
+            </div>
+
+        <div class="hero-box">
+
+            <img src="gabrielPng.png" class="hero-img" alt="">
+            <h3>Transformando autoestima em cada corte, um barbeiro não muda apenas o visual — muda a forma como a pessoa se enxerga.</h3>
+
+        </div>
+
+           <h1 class="hero-title">
+            GabrielM.
+           </h1>
+           
+
+          <div class="carousel top-carousel">
+    <div class="track track-right">
+        <span>Mais do que um corte, um compromisso com a excelência.</span>
+        <span>Mais do que um corte, um compromisso com a excelência.</span>
+        <span>Mais do que um corte, um compromisso com a excelência.</span>
+        <span>Mais do que um corte, um compromisso com a excelência.</span>
+    </div>
+</div>
+
+<div class="carousel bottom-carousel">
+    <div class="track track-left">
+        <span>Seu estilo começa onde a confiança encontra a tradição.</span>
+        <span>Seu estilo começa onde a confiança encontra a tradição.</span>
+        <span>Seu estilo começa onde a confiança encontra a tradição.</span>
+        <span>Seu estilo começa onde a confiança encontra a tradição.</span>
+    </div>
+</div>
+
+<div class="btn-agendar">
+    <button class="agendar">Agendar Serviço</button>
+</div>
+
+<script>
+function infiniteMarquee(selector, direction, speed) {
+
+    const track = document.querySelector(selector);
+    const original = track.innerHTML;
+
+    // Duplica bastante conteúdo
+    track.innerHTML = original.repeat(15);
+
+    let x = 0;
+    const limit = track.scrollWidth / 15;
+
+    function animate() {
+
+        x += direction * speed;
+
+        if (direction > 0 && x >= 0) {
+            x = -limit;
+        }
+
+        if (direction < 0 && -x >= limit) {
+            x = 0;
+        }
+
+        track.style.transform = `translateX(${x}px)`;
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}
+
+// cima → direita
+infiniteMarquee(".track-right", 1, 0.6);
+
+// baixo → esquerda
+infiniteMarquee(".track-left", -1, 0.6);
+</script>
+
+    </div>
+
+</section>
+
+<section class="about">
+
+   <div class="row">
+
+      <div class="image">
+         <img src="images/about.png" alt="">
+      </div>
+
+      <div class="content">
+         <h3>Bem-Vindo!</h3>
+         <p>Eu sou o Gabriel Martins, barbeiro na barbearia Flávio Bezerra, e levo muito a sério cada detalhe do meu trabalho. Desde o primeiro atendimento até o último acabamento, eu me dedico para entregar não apenas um corte, mas uma experiência completa, onde cada cliente se sinta valorizado e confiante. Tenho verdadeira paixão pelo que faço, e isso me motiva a buscar evolução constante, aprimorando minhas técnicas e cuidando para que cada resultado seja melhor do que o anterior. Trabalho com determinação e foco, acreditando que a confiança do cliente é conquistada no dia a dia, com consistência e respeito. Na minha cadeira, cada pessoa que senta pode esperar comprometimento, atenção e o meu máximo esforço, porque meu objetivo é simples: sempre dar o melhor de mim em tudo o que faço.</p>
+
+         <a href="menu.php" class="btn">Ver Serviços</a>
+      </div>
+
+   </div>
+
+</section>
+
+<section class="reviews-pin">
+    <div class="reviews-inner">
+        <div class="reviews-track">
+
+            <!-- EXEMPLO (repete 20x) -->
+            <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+             <div class="review">
+                <img src="images/p1.jpg">
+                <div class="stars">★★★★★</div>
+                <p>Atendimento incrível!</p>
+            </div>
+
+
+            <!-- repete até 20 -->
+        </div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+<script>
+const track2 = document.querySelector(".track");
+const content = track2.innerHTML;
+
+for (let i = 0; i < 5; i++) {
+    track2.innerHTML += content;
+}
+</script>
+</body>
+</html>
