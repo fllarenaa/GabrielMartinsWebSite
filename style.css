@@ -1,0 +1,340 @@
+@font-face {
+    font-family: "aquiline";
+    src: url("fonts/exmouth_.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Rosehot";
+    src: url("fonts/Venture-nRqOR.otf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+@import url('https://fonts.cdnfonts.com/css/venture');
+:root {
+    --gold: #ffb338;
+    --light-shadow: #77571d;
+    --dark-shadow: #3e2904;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    overflow-x:hidden;
+    font-family: 'Venture', sans-serif;
+}
+
+.hero-scroll{
+    height:350vh;
+    position:relative;
+}
+
+.sticky{
+
+    position:sticky;
+    top:0;
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color: rgb(48, 48, 48);
+    overflow:hidden;
+}
+
+.hero-box{
+
+    width:100%;
+    height:100%;
+
+    background:#fff;
+
+    border-radius:2px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    transform-origin:center center;
+}
+
+.hero-box h3 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 200px;
+}
+
+.hero-img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+    object-position:center bottom;
+
+    filter:saturate(1);
+
+    user-select:none;
+    pointer-events:none;
+
+    transform-origin:center bottom;
+}
+
+
+.hero-box,
+.hero-title,
+.top-carousel,
+.bottom-carousel,
+.hero-img{
+    transition:none;
+    will-change:transform,width,height,top,font-size;
+}
+
+.hero-title{
+
+    position:absolute;
+
+
+
+    font-size:10vw;
+    color: #ccc;
+font-family: "aquiline";
+    transform:translateY(50px);
+    display: grid;
+    grid-template-areas: "overlap";
+    place-content: center;
+    height: 100vw;
+    transition:none;
+    transform: translateY(50px);
+
+
+
+    transform: skew(12vw);
+  
+}
+
+
+.carousel{
+    position:absolute;
+    left:50%;
+    margin-top: -42px;
+    transform:translateX(-50%);
+    width:100%;
+    overflow:hidden;
+    pointer-events:none;
+    z-index: -1;
+}
+
+.top-carousel{
+    top:45%;
+}
+
+.bottom-carousel{
+    top:58%;
+}
+
+.track{
+    display:flex;
+    gap:20px;
+    width:max-content;
+    will-change:transform;
+}
+
+.track span{
+    white-space:nowrap;
+    flex-shrink:0;
+    font-size:6rem;
+    font-family:"Rosehot";
+    color:#ccc;
+}
+
+.btn-agendar{
+    position:absolute;
+    left:50%;
+    bottom:3%;
+
+    transform:translateX(-50%);
+
+    z-index:-1;
+}
+
+.btn-agendar button{
+    border:none;
+    outline:none;
+
+    padding:10px 22px;
+
+    background:#d4af37;
+    color:#000;
+
+    font-family:"Rosehot";
+    font-size:clamp(1rem,1.2vw,1.5rem);
+
+    border-radius:15px;
+    cursor:pointer;
+
+    transition:.5s;
+}
+
+.btn-agendar button:hover{
+    transform:translateY(-3px);
+    transform: skew(-5deg);
+    color: #ffffff;
+    box-shadow:0 15px 35px rgba(212,175,55,.35);
+}
+
+.titleLogo  {
+  position: absolute;
+  /* width: 0px; */
+  transform: scale(0.1);
+  margin-bottom: 500px;
+  z-index: -1;
+}
+
+.titleLogo > img {
+  filter: invert(1);
+}
+
+.about{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+
+    background-image: url("background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.about .row{
+    width: 100%;
+    max-width: 1200px;
+    font-family: "rosehot";
+ 
+}
+
+.about .row .image{
+   flex:1 1 40rem;
+}
+
+.about .row .image img{
+   width: 100%;
+}
+
+.about .row .content{
+   flex:1 1 40rem;
+   text-align: center;
+}
+
+.about .row .content h3{
+   font-size: 3rem;
+   color:#ccc;
+   text-transform: capitalize;
+   margin-bottom: 1rem;
+}
+
+.about .row .content p{
+   padding:1rem 0;
+   line-height: 2;
+   font-size: 1.6rem;
+   color:#ccc;
+}
+
+.content h3,
+.content p {
+    overflow: hidden;
+}
+
+/* cada letra vira um span */
+.char {
+    opacity: 0;
+    transform: translateY(20px);
+    display: inline-block;
+    transition: all 0.25s ease;
+}
+
+.char.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 500px) {
+  .hero-box h3 {
+    display: none;
+  }
+}
+
+.reviews-pin{
+    height: 300vh;
+
+    /* 👇 imagem de fundo */
+    background-image: url("background.png");
+    background-size: cover;        /* cobre tudo */
+    background-position: center;    /* centraliza */
+    background-repeat: no-repeat;  /* não repete */
+
+    position: relative;
+}
+
+.reviews-inner{
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+}
+
+.reviews-track{
+    display: flex;
+    gap: 60px;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    will-change: transform;
+}
+
+/* CARD GRANDE */
+.review{
+    width: 400px;
+    height: 300px;
+    flex-shrink: 0;
+
+    background: #111;
+    color: #ccc;
+    border-radius: 16px;
+    padding: 15px;
+}
+
+.review img{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.stars{
+    color: gold;
+    margin: 10px 0;
+}
+
+/* zig-zag */
+.review:nth-child(odd){ transform: translateY(-40px); }
+.review:nth-child(even){ transform: translateY(40px); }
+
