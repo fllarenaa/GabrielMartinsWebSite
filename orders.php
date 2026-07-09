@@ -18,6 +18,10 @@ if(isset($_SESSION['user_id'])){
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Pedidos</title>
+   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
    <!-- Remix Icons -->
    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -212,12 +216,12 @@ body {
 <?php include 'components/user_header.php'; ?>
 
 <div class="heading">
-   <h3>Pedidos</h3>
-   <p><a href="index.php">home</a> <span> / pedidos</span></p>
+   <h3>Agendamentos</h3>
+   <p><a href="index.php">início</a> <span> / agendamentos</span></p>
 </div>
 
 <section class="orders">
-   <h1 class="title">Acompanhe seus pedidos</h1>
+   <h1 class="title">Acompanhe seus agendamentos</h1>
 
    <div class="box-container">
 
@@ -231,24 +235,23 @@ body {
       if($select_orders->rowCount() > 0){
          while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
 
-            $order_status = $fetch_orders['payment_status']; // ou 'order_status'
+            $order_status = $fetch_orders['payment_status']; 
 
-            // Define status visual e mensagem
             $progress_width = '33%';
-            $mensagem_status = 'Seu pedido está sendo preparado 👨‍🍳';
+            $mensagem_status = 'Serviço Pendente!';
             $color_preparo = 'var(--yellow)';
             $color_caminho = '#ccc';
             $color_entregue = '#ccc';
 
             if($order_status == 'a_caminho'){
                $progress_width = '66%';
-               $mensagem_status = 'Seu pedido está a caminho 🚗💨';
+               $mensagem_status = 'Seu pedido está a caminho';
                $color_preparo = 'var(--yellow)';
                $color_caminho = 'var(--yellow)';
                $color_entregue = '#ccc';
             } elseif($order_status == 'completed'){
                $progress_width = '100%';
-               $mensagem_status = 'Seu pedido foi entregue 🏡✨';
+               $mensagem_status = 'Serviço Concluido!';
                $color_preparo = 'var(--yellow)';
                $color_caminho = 'var(--yellow)';
                $color_entregue = 'var(--yellow)';
@@ -256,21 +259,19 @@ body {
    ?>
 
    <div class="pedido-box">
-      <h2><i class="ri-shopping-bag-3-fill" style="color:var(--yellow);"></i> Pedido #<?= $fetch_orders['id']; ?></h2>
+      <h2><i class="ri-shopping-bag-3-fill" style="color:var(--yellow);"></i> Agendamento #<?= $fetch_orders['id']; ?></h2>
 
       <!-- Status -->
       <div class="status">
          <label>
-            <i class="ri-restaurant-line" style="color:<?= $color_preparo; ?>;"></i>
-            <span>Em preparo</span>
+            
+            <i class="ri-scissors-line" style="color:<?= $color_preparo; ?>;"></i>
+            <span>Pendente</span>
          </label>
-         <label>
-            <i class="ri-truck-line" style="color:<?= $color_caminho; ?>;"></i>
-            <span>A caminho</span>
-         </label>
+   
          <label>
             <i class="ri-home-4-line" style="color:<?= $color_entregue; ?>;"></i>
-            <span>Entregue</span>
+            <span>Serviço Realizado</span>
          </label>
       </div>
 
@@ -289,14 +290,16 @@ body {
       <p><strong>Endereço:</strong> <?= $fetch_orders['address']; ?></p>
       <p><strong>Pagamento:</strong> <?= $fetch_orders['method']; ?></p>
       <p><strong>Itens:</strong> <?= $fetch_orders['total_products']; ?></p>
+      <p><strong>Data do Agendamento:</strong> <?= $fetch_orders['appointment_date']; ?></p>
+      <p><strong>Horário do Agendamento:</strong> <?= $fetch_orders['appointment_time']; ?></p>
       <p><strong>Total:</strong> $<?= $fetch_orders['total_price']; ?>/-</p>
 
       <?php if($order_status == 'completed'){ ?>
       <div class="confirmar">
-         <p><strong>Confirme a entrega:</strong></p>
+         <p><strong>Serviço realizado!</strong></p>
          <!-- <input type="password" placeholder="Digite o PIN"> -->
          <br>
-         <button style=" color: green;"><i class="ri-check-line"></i> Confirmar Entrega</button>
+         <!-- <button style=" color: green;"><i class="ri-check-line"></i> Confirmar Entrega</button> -->
       </div>
       <?php } ?>
    </div>

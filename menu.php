@@ -53,15 +53,14 @@ body {
 <!-- header section ends -->
 
 <div class="heading">
-   <h3>Il nostro menù</h3>
-   <p><a href="index.php">Início</a> <span> / menu</span></p>
+   <h3>Meus Serviços</h3>
+   <p><a href="index.php">Início</a> <span> / serviços</span></p>
 </div>
 
 <!-- menu section starts  -->
 
 <section class="products">
 
-   <h1 class="title">Cardápio</h1>
 
    <div class="box-container">
 

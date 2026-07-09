@@ -61,7 +61,6 @@ if(isset($message)){
 
    <form action="" method="POST">
       <h3>Entrar agora</h3>
-      <p>Usuário padrão = <span>admin</span> & Senha = <span>111</span></p>
       <input type="text" name="name" maxlength="20" required placeholder="Digite seu nome de usuário" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" maxlength="20" required placeholder="Digite sua senha" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="submit" value="Entrar" name="submit" class="btn">

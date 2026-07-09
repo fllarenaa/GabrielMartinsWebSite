@@ -17,13 +17,13 @@ if(isset($message)){
 
    <section class="flex">
 
-      <a href="index.php" class="logo">Stella Maris</a>
+      <a href="index.php" class="logo"><img src="images/logo.png" alt=""></a>
 
       <nav class="navbar">
          <a href="index.php">INÍCIO</a>
          <a href="about.php">SOBRE</a>
-         <a href="menu.php">CARDÁPIO</a>
-         <a href="orders.pHp">PEDIDOS</a>
+         <a href="menu.php">SERVIÇOS</a>
+         <a href="orders.php">AGENDAMENTOS</a>
          <a href="contact.php">CONTATO</a>
       </nav>
 
@@ -33,10 +33,10 @@ if(isset($message)){
             $count_cart_items->execute([$user_id]);
             $total_cart_items = $count_cart_items->rowCount();
          ?>
-         <a href="search.php"><i class="fas fa-search"></i></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_items; ?>)</span></a>
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="menu-btn" class="fas fa-bars"></div>
+         <a href="search.php"><i class="fas fa-search search"></i></a>
+        <div class="cart"> <a href="cart.php"><i class="fas fa-shopping-cart "></i><span>(<?= $total_cart_items; ?>)</span></a></div>
+         <div id="user-btn" class="fas fa-user userBtn"></div>
+         <div id="menu-btn" class="fas fa-bars barras"></div>
       </div>
 
       <div class="profile">
@@ -58,7 +58,7 @@ if(isset($message)){
          <?php
             }else{
          ?>
-            <p class="name">Realize o login primeiro, por favor!</p>
+            <p class="name login-warning">Realize o login primeiro, por favor!</p>
             <a href="login.php" class="btn">Login</a>
          <?php
           }

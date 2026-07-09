@@ -9,43 +9,66 @@ if(isset($_SESSION['user_id'])){
 }else{
    $user_id = '';
    header('location:index.php');
-};
+   exit;
+}
 
 if(isset($_POST['submit'])){
 
-   $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $number = $_POST['number'];
-   $number = filter_var($number, FILTER_SANITIZE_STRING);
-   $email = $_POST['email'];
-   $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $method = $_POST['method'];
-   $method = filter_var($method, FILTER_SANITIZE_STRING);
-   $address = $_POST['address'];
-   $address = filter_var($address, FILTER_SANITIZE_STRING);
+   $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+   $number = filter_var($_POST['number'], FILTER_SANITIZE_STRING);
+   $email = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
+   $method = filter_var($_POST['method'], FILTER_SANITIZE_STRING);
+   $address = filter_var($_POST['address'], FILTER_SANITIZE_STRING);
+
+   $appointment_date = $_POST['appointment_date'];
+   $appointment_time = $_POST['appointment_time'];
+
    $total_products = $_POST['total_products'];
    $total_price = $_POST['total_price'];
 
-   $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+   $check_cart = $conn->prepare("SELECT * FROM cart WHERE user_id = ?");
    $check_cart->execute([$user_id]);
 
    if($check_cart->rowCount() > 0){
 
       if($address == ''){
-         $message[] = 'Por favor, adicione seu endereço!';
-      }else{
-         
-         $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?,?)");
-         $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
 
-         $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+         $message[] = 'Por favor, adicione seu endereço!';
+
+      }elseif(empty($appointment_date) || empty($appointment_time)){
+
+         $message[] = 'Selecione uma data e horário para o agendamento!';
+
+      }else{
+
+         $insert_order = $conn->prepare("INSERT INTO orders
+         (user_id,name,number,email,method,address,appointment_date,appointment_time,total_products,total_price)
+         VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+         $insert_order->execute([
+            $user_id,
+            $name,
+            $number,
+            $email,
+            $method,
+            $address,
+            $appointment_date,
+            $appointment_time,
+            $total_products,
+            $total_price
+         ]);
+
+         $delete_cart = $conn->prepare("DELETE FROM cart WHERE user_id = ?");
          $delete_cart->execute([$user_id]);
 
          $message[] = 'Pedido realizado com sucesso!';
+
       }
-      
+
    }else{
+
       $message[] = 'Seu carrinho está vazio!';
+
    }
 
 }
@@ -82,6 +105,55 @@ body {
    background-color: var(--light-bg);
 }
 
+#timeContainer{
+
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+gap:12px;
+margin-top:15px;
+
+}
+
+.timeBox{
+
+padding:15px;
+background:#202020;
+border:2px solid #444;
+border-radius:8px;
+cursor:pointer;
+text-align:center;
+font-size:16px;
+font-weight:bold;
+transition:.3s;
+color:#fff;
+
+}
+
+.timeBox:hover{
+
+background:#d4af37;
+color:#000;
+
+}
+
+.selected{
+
+background:#d4af37;
+border-color:#d4af37;
+color:#000;
+
+}
+
+.closed{
+
+margin-top:15px;
+padding:15px;
+background:#b91c1c;
+color:#fff;
+border-radius:8px;
+font-size:15px;
+
+}
 
 
 
@@ -144,6 +216,27 @@ body {
       <h3>Endereço de Entrega</h3>
       <p><i class="fas fa-map-marker-alt"></i><span><?php if($fetch_profile['address'] == ''){echo 'Por favor, adicione seu endereço';}else{echo $fetch_profile['address'];} ?></span></p>
       <a href="update_address.php" class="btn">Atualizar Endereço</a>
+      <h3>Escolha a data do agendamento</h3>
+
+<input
+type="date"
+name="appointment_date"
+id="appointment_date"
+class="box"
+required
+min="<?= date('Y-m-d'); ?>">
+
+<div id="messageSunday"></div>
+
+<h3>Horários disponíveis</h3>
+
+<div id="timeContainer"></div>
+
+<input
+type="hidden"
+name="appointment_time"
+id="appointment_time"
+required>
       <select name="method" class="box" required>
          <option value="" disabled selected>Selecione o método de pagamento --</option>
          <option value="cash on delivery">Dinheiro na entrega</option>
@@ -164,6 +257,79 @@ body {
 
 <!-- Script JS -->
 <script src="js/script.js"></script>
+<script>
 
+const dateInput=document.getElementById("appointment_date");
+const container=document.getElementById("timeContainer");
+const hidden=document.getElementById("appointment_time");
+const sunday=document.getElementById("messageSunday");
+
+dateInput.addEventListener("change",()=>{
+
+    container.innerHTML="";
+    hidden.value="";
+    sunday.innerHTML="";
+
+    fetch("get_times.php?date="+dateInput.value)
+
+    .then(r=>r.json())
+
+    .then(data=>{
+
+        if(data.status=="closed"){
+
+            sunday.innerHTML=`
+            <div class="closed">
+            Não há funcionamento aos domingos.
+            </div>
+            `;
+
+            return;
+
+        }
+
+        if(data.times.length==0){
+
+            container.innerHTML=`
+            <div class="closed">
+            Não existem horários disponíveis nesta data.
+            </div>
+            `;
+
+            return;
+
+        }
+
+        data.times.forEach(time=>{
+
+            let box=document.createElement("div");
+
+            box.className="timeBox";
+
+            box.innerHTML=time;
+
+            box.onclick=function(){
+
+                document.querySelectorAll(".timeBox").forEach(e=>{
+
+                    e.classList.remove("selected");
+
+                });
+
+                this.classList.add("selected");
+
+                hidden.value=time;
+
+            }
+
+            container.appendChild(box);
+
+        });
+
+    });
+
+});
+
+</script>
 </body>
 </html>

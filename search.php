@@ -26,7 +26,7 @@ include 'components/add_cart.php';
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
    <!-- CSS -->
-   <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
    <link rel="stylesheet" href="newstyle.css?v=<?php echo time(); ?>">
 
       <style>

@@ -40,8 +40,7 @@
 
    <div class="credit">
       &copy; <?= date('Y'); ?> — Desenvolvido por 
-      <a href="https://mrwebdesigner.com" target="_blank"><span>Mr. Web Designer</span></a>
-      e 
+
       <a href="https://bewise.com.br" target="_blank"><span>BeWise</span></a> | 
       Todos os direitos reservados.
    </div>
